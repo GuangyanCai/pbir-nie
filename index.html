@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css" />
   <link rel="stylesheet" href="static/css/index.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -45,6 +46,7 @@
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script src="static/js/bulma-carousel.min.js"></script>
   <script src="static/js/bulma-slider.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
   <script src="static/js/index.js"></script>
 </head>
 
@@ -152,6 +154,22 @@
 </section> -->
   <!-- End teaser video -->
 
+  <!-- Teaser Image -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="static/images/teaser.jpg" alt="teaser" />
+        <h2 class="subtitle has-text-centered">
+          We propose PBIR-NIE, a physics-based inverse rendering pipeline that optimizes an object’s shape, glossy
+          surface reflectance, and non-distant
+          lighting representation. Our method faithfully recovers the shiny and specular appearance, produces relighting
+          results with high fidelity, and accurately
+          captures geometric details from a rough visual hull initialization.
+        </h2>
+      </div>
+    </div>
+  </section>
+
   <!-- Paper abstract -->
   <section class="section hero is-light">
     <div class="container is-max-desktop">
@@ -180,6 +198,133 @@
   </section>
   <!-- End paper abstract -->
 
+  <!-- Pipeline Figure -->
+  <section class="section hero ">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <div class="hero-body">
+            <h2 class="title is-3">Our Pipeline</h2>
+            <div class="content has-text-justified">
+              <img src="static/images/pipeline.png" alt="pipeline" />
+              Our pipeline takes a set of multi-view images capturing a glossy
+              object and an initial shape as input. It then
+              reconstructs the scene’s geometry, material properties, and lighting using a physics-based inverse
+              rendering (PBIR) approach. The iterative refinement process
+              includes:
+              <ol>
+                <li>
+                  Forward Pass: Rendering an image by employing physics-based differentiable rendering. This
+                  involves using an explicit mesh extracted with a
+                  non-differentiable Marching Cubes algorithm to represent the neural implicit surface for shape, and
+                  material networks for surface properties, while leveraging
+                  information from input training views. Additionally, Envmap++ is utilized for enhanced lighting
+                  representation, replacing the standard infinite-distance
+                  environment map to handle non-distant background illumination.
+                </li>
+                <li>
+                  Backward Pass: Comparing the rendered
+                  image to the ground truth and computing
+                  gradients with respect to scene parameters. We use neural implicit evolution (NIE) [Mehta et al. 2022]
+                  to
+                  facilitate the backpropagation of gradients from the
+                  extracted mesh to the neural implicit surface, bypassing the non-differentiable extraction step.
+                </li>
+                <li>
+                  Update: Adjusting scene parameters (geometry, material,
+                  lighting) via backpropagation to minimize the difference between the rendered and ground truth image
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparisons with NeRO -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Comparisons with NeRO</h2>
+          <div class="content has-text-justified">
+            <p>We evaluate the quality of material and lighting reconstruction using NeRO’s glossy synthetic dataset.
+              In this
+              experiment, we use the same geometry as NeRO and compare NeRO’s stage II results with ours. Our PBIR-NIE
+              demonstrates superior reconstruction quality on the appearance of glossy objects, capturing detailed
+              highlights
+              from the environment more effectively.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="field is-grouped" id="nero_cmp_buttons">
+          <button class="button" data-word="angel">angel</button>
+          <button class="button" data-word="bell">bell</button>
+          <button class="button" data-word="cat">cat</button>
+          <button class="button" data-word="horse">horse</button>
+          <button class="button" data-word="luyu">luyu</button>
+          <button class="button" data-word="potion">potion</button>
+          <button class="button" data-word="tbell">tbell</button>
+          <button class="button" data-word="teapot">teapot</button>
+        </div>
+      </div>
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <b>novel 1</b>
+          <img-comparison-slider hover="hover">
+            <img slot="first" class="nero_cmp_imgs" src=""
+              data-template="static/images/nero/our_nvs/{{placeholder}}/0.png" />
+            <img slot="second" class="nero_cmp_imgs" src=""
+              data-template="static/images/nero/nero_nvs/{{placeholder}}/0.png" />
+          </img-comparison-slider>
+        </div>
+        <div class="column">
+          <b>novel 1</b>
+          <img-comparison-slider hover="hover">
+            <img slot="first" class="nero_cmp_imgs" src=""
+              data-template="static/images/nero/our_nvs/{{placeholder}}/1.png" />
+            <img slot="second" class="nero_cmp_imgs" src=""
+              data-template="static/images/nero/nero_nvs/{{placeholder}}/1.png" />
+          </img-comparison-slider>
+        </div>
+        <div class="column">
+          <b>novel 1</b>
+          <img-comparison-slider hover="hover">
+            <img slot="first" class="nero_cmp_imgs" src=""
+              data-template="static/images/nero/our_relit/{{placeholder}}_corridor/6.png" />
+            <img slot="second" class="nero_cmp_imgs" src=""
+              data-template="static/images/nero/nero_relit/{{placeholder}}_corridor/6.png" />
+          </img-comparison-slider>
+        </div>
+        <div class="column">
+          <b>novel 1</b>
+          <img-comparison-slider hover="hover">
+            <img slot="first" class="nero_cmp_imgs" src=""
+              data-template="static/images/nero/our_relit/{{placeholder}}_neon/6.png" />
+            <img slot="second" class="nero_cmp_imgs" src=""
+              data-template="static/images/nero/nero_relit/{{placeholder}}_neon/6.png" />
+          </img-comparison-slider>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <div class="image-container">
+            <b>envmap</b>
+            <img-comparison-slider hover="hover">
+              <img slot="first" class="nero_cmp_imgs" src=""
+                data-template="static/images/nero/our_envmap/{{placeholder}}.png" />
+              <img slot="second" class="nero_cmp_imgs" src=""
+                data-template="static/images/nero/nero_envmap/{{placeholder}}.png" />
+            </img-comparison-slider>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Image carousel -->
   <!-- <section class="hero is-small">
@@ -317,10 +462,6 @@
               This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
                 target="_blank">Academic Project Page Template</a> which was adopted from the <a
                 href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-              You are free to borrow the of this website, we just ask that you link back to this page in the footer.
-              <br> This website is licensed under a <a rel="license"
-                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-                Commons Attribution-ShareAlike 4.0 International License</a>.
             </p>
 
           </div>
