@@ -1,5 +1,5 @@
 # PBIR-NIE Github Page
-This repo is for hosting the project page of the paper PBIR-NIE: Glossy Object Capture under Non-Distant Lighting.
+This branch is for hosting the project page of the paper PBIR-NIE: Glossy Object Capture under Non-Distant Lighting.
 
 ## Acknowledgments
 This project page is based on [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template), which were adopted from the [Nerfies](https://nerfies.github.io/) page.
