@@ -253,8 +253,12 @@
               In this
               experiment, we use the same geometry as NeRO and compare NeRO’s stage II results with ours. Our PBIR-NIE
               demonstrates superior reconstruction quality on the appearance of glossy objects, capturing detailed
-              highlights
-              from the environment more effectively.
+              environment and sharp highlight more effectively.
+            </p>
+            <p>
+              In the following, we compare our results with NeRO in terms of novel view synthesis, relighting, and
+              environment map reconstruction. Each image has a slider for you to switch between our results (left) and
+              NeRO's results (right). You can change the scene using the buttons below.
             </p>
           </div>
         </div>
@@ -283,7 +287,7 @@
           </img-comparison-slider>
         </div>
         <div class="column">
-          <b>novel 1</b>
+          <b>novel 2</b>
           <img-comparison-slider hover="hover">
             <img slot="first" class="nero_cmp_imgs" src=""
               data-template="static/images/nero/our_nvs/{{placeholder}}/1.png" />
@@ -292,7 +296,7 @@
           </img-comparison-slider>
         </div>
         <div class="column">
-          <b>novel 1</b>
+          <b>relit 1</b>
           <img-comparison-slider hover="hover">
             <img slot="first" class="nero_cmp_imgs" src=""
               data-template="static/images/nero/our_relit/{{placeholder}}_corridor/6.png" />
@@ -301,7 +305,7 @@
           </img-comparison-slider>
         </div>
         <div class="column">
-          <b>novel 1</b>
+          <b>relit 2</b>
           <img-comparison-slider hover="hover">
             <img slot="first" class="nero_cmp_imgs" src=""
               data-template="static/images/nero/our_relit/{{placeholder}}_neon/6.png" />
